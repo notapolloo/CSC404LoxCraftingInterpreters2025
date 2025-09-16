@@ -1,10 +1,15 @@
 package lox;
 
-class RuntimeError extends RuntimeException {
-  final Token token;
+public class RuntimeError extends RuntimeException {
+    final Token token;
 
-  RuntimeError(Token token, String message) {
-    super(message);
-    this.token = token;
-  }
+    RuntimeError(Token token, String message) {
+        super(message);
+        this.token = token;
+    }
+
+    @Override
+    public String getMessage() {
+        return "Runtime error at " + token + ": " + super.getMessage();
+    }
 }

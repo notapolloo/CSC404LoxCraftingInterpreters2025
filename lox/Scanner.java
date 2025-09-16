@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import static lox.TokenType.*;
 
 public class Scanner {
@@ -12,7 +13,7 @@ public class Scanner {
     private int start = 0;
     private int current = 0;
     private int line = 1;
-                                
+
     private static final Map<String, TokenType> keywords;
     static {
         keywords = new HashMap<>();
@@ -67,27 +68,10 @@ public class Scanner {
             case '<' -> addToken(match('=') ? LESS_EQUAL : LESS);
             case '>' -> addToken(match('=') ? GREATER_EQUAL : GREATER);
             case '/' -> {
-
-                //comments
-                if (match('/')) { //Patched out an index error with CoPilot
+                if (match('/')) {
                     // A comment goes until the end of the line.
-                    while (peek() != '\n' && !isAtEnd() ) advance();
-                }
-                else if (peek() == '*') { // blocks
-                    int nestCount = 1;
-                    while (nestCount != 0 && !isAtEnd()) {
-                        // Only advance if not at end
-                        if (!isAtEnd()) advance(); //made safe with CoPilot
-                        if (isCommentStart()) {
-                            nestCount++;
-                        } else if (isCommentEnd()) {
-                            nestCount--;
-                        }
-                    }
-                    // Only advance if not at end (to consume final '/')
-                    if (!isAtEnd()) advance(); //made safe with CoPilot
-                }
-                 else {
+                    while (peek() != '\n' && !isAtEnd()) advance();
+                } else {
                     addToken(SLASH);
                 }
             }
@@ -168,33 +152,6 @@ public class Scanner {
         return source.charAt(current + 1);
     }
 
-    private boolean isCommentEnd() { 
-
-        if (peek() == '*' && peekNext() == '/') {
-            // Only advance if not at end
-            if (!isAtEnd()) advance(); // consume '*' //made safe with CoPilot
-            if (!isAtEnd()) advance(); // consume '/'//made safe with CoPilot
-            return true;
-        } else if (isAtEnd()) {
-            Lox.error(line, "Unterminated comment.");
-            return true; // treat as end to avoid infinite loop
-        }
-        return false;
-    }
-
-    private boolean isCommentStart() { 
-
-        if (peek() == '/' && peekNext() == '*') {
-            // Only advance if not at end
-            if (!isAtEnd()) advance(); // consume '/' //made safe with CoPilot
-            if (!isAtEnd()) advance(); // consume '*' //made safe with CoPilot
-            return true;
-        } else if (isAtEnd()) {
-            Lox.error(line, "Unterminated start to comment.");
-            return true; // treat as end to avoid infinite loop
-        }
-        return false;
-    }
     private boolean isAlpha(char c) {
         return (c >= 'a' && c <= 'z') ||
                (c >= 'A' && c <= 'Z') ||
