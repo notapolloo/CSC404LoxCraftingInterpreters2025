@@ -1,1 +1,0 @@
-In scanner, Copilot was used to help me fix my out of bounds errors by wrapping each call to advance() with (if !AtEnd)
