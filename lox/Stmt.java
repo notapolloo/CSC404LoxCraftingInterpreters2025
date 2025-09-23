@@ -8,11 +8,14 @@ import java.util.List;
 abstract class Stmt {
   interface Visitor<R> {
     R visitBlockStmt(Block stmt);
+    R visitClassStmt(Class stmt);
     R visitExpressionStmt(Expression stmt);
+    R visitFunctionStmt(Function stmt);
     R visitIfStmt(If stmt);
     R visitPrintStmt(Print stmt);
-    R visitWhileStmt(While stmt);
+    R visitReturnStmt(Return stmt);
     R visitVarStmt(Var stmt);
+    R visitWhileStmt(While stmt);
   }
   static class Block extends Stmt {
     Block(List<Stmt> statements) {
@@ -31,6 +34,25 @@ abstract class Stmt {
       return "Block(" + statements + ")";
     }
   }
+  static class Class extends Stmt {
+    Class(Token name, List<Stmt.Function> methods) {
+      this.name = name;
+      this.methods = methods;
+    }
+
+    @Override
+    <R> R accept(Visitor<R> visitor) {
+      return visitor.visitClassStmt(this);
+    }
+
+    final Token name;
+    final List<Stmt.Function> methods;
+
+    @Override
+    public String toString() {
+      return "Class(" + name + ", " + methods + ")";
+    }
+  }
   static class Expression extends Stmt {
     Expression(Expr expression) {
       this.expression = expression;
@@ -46,6 +68,27 @@ abstract class Stmt {
     @Override
     public String toString() {
       return "Expression(" + expression + ")";
+    }
+  }
+  static class Function extends Stmt {
+    Function(Token name, List<Token> params, List<Stmt> body) {
+      this.name = name;
+      this.params = params;
+      this.body = body;
+    }
+
+    @Override
+    <R> R accept(Visitor<R> visitor) {
+      return visitor.visitFunctionStmt(this);
+    }
+
+    final Token name;
+    final List<Token> params;
+    final List<Stmt> body;
+
+    @Override
+    public String toString() {
+      return "Function(" + name + ", " + params + ", " + body + ")";
     }
   }
   static class If extends Stmt {
@@ -86,23 +129,23 @@ abstract class Stmt {
       return "Print(" + expression + ")";
     }
   }
-  static class While extends Stmt {
-    While(Expr condition, Stmt body) {
-      this.condition = condition;
-      this.body = body;
+  static class Return extends Stmt {
+    Return(Token keyword, Expr value) {
+      this.keyword = keyword;
+      this.value = value;
     }
 
     @Override
     <R> R accept(Visitor<R> visitor) {
-      return visitor.visitWhileStmt(this);
+      return visitor.visitReturnStmt(this);
     }
 
-    final Expr condition;
-    final Stmt body;
+    final Token keyword;
+    final Expr value;
 
     @Override
     public String toString() {
-      return "While(" + condition + ", " + body + ")";
+      return "Return(" + keyword + ", " + value + ")";
     }
   }
   static class Var extends Stmt {
@@ -122,6 +165,25 @@ abstract class Stmt {
     @Override
     public String toString() {
       return "Var(" + name + ", " + initializer + ")";
+    }
+  }
+  static class While extends Stmt {
+    While(Expr condition, Stmt body) {
+      this.condition = condition;
+      this.body = body;
+    }
+
+    @Override
+    <R> R accept(Visitor<R> visitor) {
+      return visitor.visitWhileStmt(this);
+    }
+
+    final Expr condition;
+    final Stmt body;
+
+    @Override
+    public String toString() {
+      return "While(" + condition + ", " + body + ")";
     }
   }
 
