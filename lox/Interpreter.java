@@ -34,8 +34,8 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
             @Override //what it does 
             public Object call(Interpreter interpreter,
             List<Object> arguments) {
-                //  System.out.println(arguments.get(0).getClass().getSimpleName()); //to check
-                return arguments.get(0).getClass().getSimpleName();
+                System.out.println(arguments.get(0).getClass().getSimpleName()); //to check
+                return arguments.get(0).getClass().toString();
             }
             
             @Override
@@ -67,7 +67,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
             @Override //what it does 
             public Object call(Interpreter interpreter,
             List<Object> arguments) {
-                System.exit((int)arguments.get(0));
+                System.exit(1738);//ay I'm like hey what's up hello
                 return null;
             }
             
