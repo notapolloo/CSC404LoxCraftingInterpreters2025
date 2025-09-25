@@ -59,6 +59,10 @@ public class Lox {
         // Print the AST.
         //System.out.println("Parsed expression: " + expression.toString());
 
+        Resolver resolver = new Resolver(interpreter);
+        resolver.resolve(statements);
+        if (hadError) return;
+
         interpreter.interpret(statements);
     }
 

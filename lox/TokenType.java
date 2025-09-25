@@ -20,5 +20,8 @@ enum TokenType {
     RETURN, SUPER, THIS, TRUE,
     VAR, WHILE,
 
+    // CHAPTER 9 CHALLENGE
+    BREAK,
+
     EOF
 }
