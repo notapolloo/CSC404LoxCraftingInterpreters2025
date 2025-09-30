@@ -35,6 +35,7 @@ public class Lox {
         InputStreamReader input = new InputStreamReader(System.in);
         BufferedReader reader = new BufferedReader(input);
         System.out.println("Welcome to jlox!");
+        
 
         for (;;) {
             System.out.print("> ");
