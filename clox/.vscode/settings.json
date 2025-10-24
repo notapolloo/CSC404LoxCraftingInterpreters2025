@@ -1,0 +1,23 @@
+{
+    "files.associations": {
+        "memory.h": "c",
+        "__hash_table": "c",
+        "array": "c",
+        "complex": "c",
+        "type_traits": "c",
+        "limits": "c",
+        "ratio": "c",
+        "variant": "c",
+        "__bit_reference": "c",
+        "__split_buffer": "c",
+        "deque": "c",
+        "iterator": "c",
+        "string": "c",
+        "string_view": "c",
+        "unordered_map": "c",
+        "vector": "c",
+        "chunk.h": "c",
+        "common.h": "c",
+        "stdio.h": "c"
+    }
+}
