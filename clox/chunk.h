@@ -11,6 +11,11 @@ typedef enum {
   OP_MULTIPLY,
   OP_DIVIDE,
   OP_NEGATE,
+  OP_MIN,
+  OP_MAX,
+  OP_INCREMENT,
+  OP_DECREMENT,
+  OP_SWAP,
   OP_RETURN,
 } OpCode;
 
