@@ -1,0 +1,38 @@
+{
+    "files.associations": {
+        "stdlib.h": "c",
+        "common.h": "c",
+        "__bit_reference": "c",
+        "__node_handle": "c",
+        "bitset": "c",
+        "deque": "c",
+        "limits": "c",
+        "locale": "c",
+        "optional": "c",
+        "ratio": "c",
+        "vector": "c",
+        "vm.h": "c",
+        "chunk.h": "c",
+        "__hash_table": "c",
+        "array": "c",
+        "complex": "c",
+        "type_traits": "c",
+        "variant": "c",
+        "unordered_map": "cpp",
+        "__split_buffer": "c",
+        "iterator": "c",
+        "string": "c",
+        "string_view": "c",
+        "object.h": "c",
+        "__locale": "c",
+        "compiler.h": "c"
+    },
+    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/Users/nahamid/Documents/berry/25fall/csc404/mywork-crafting-interpreters/clox/build",
+            "binaryPath": "/Users/nahamid/Documents/berry/25fall/csc404/mywork-crafting-interpreters/clox/build/clox",
+            "binaryArgs": []
+        }
+    ]
+}
