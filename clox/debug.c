@@ -4,11 +4,19 @@
 #include "value.h"
 
 void disassembleChunk(Chunk* chunk, const char* name) {
-  printf("== %s ==\n", name);
+  printf("== %s ==\\\n", name);
 
   for (int offset = 0; offset < chunk->count;) {
     offset = disassembleInstruction(chunk, offset);
   }
+  printf("-------------------------------\n");
+
+  for (int i = 0; i < chunk->constants.count; i++) {
+    printf("%3d | ", i); //3 represents max ammt oof space i can take when in the dump  __3
+    printValue(chunk->constants.values[i]);
+    printf("\n");
+  }
+  printf("\\== %s ==/\n",name);
 }
 
 static int simpleInstruction(const char* name, int offset) {
