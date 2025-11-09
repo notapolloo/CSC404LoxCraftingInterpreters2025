@@ -427,7 +427,7 @@ ParseRule rules[] = {
 static void parsePrecedence(Precedence precedence) {
   traceEnter("parsePrecedence");
   advance();
-  //printf("  token=%s\n", TokenTypeNames[parser.previous.type]);
+  //printf("AHHHHHHHHHHHHHHH  token=%s\n", TokenTypeNames[parser.previous.type]);
   ParseFn prefixRule = getRule(parser.previous.type)->prefix;
   if (prefixRule == NULL) {
     error("Expect expression.");

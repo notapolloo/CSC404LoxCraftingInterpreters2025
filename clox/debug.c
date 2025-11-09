@@ -1,23 +1,36 @@
 #include <stdio.h>
-
+#include <time.h> //p7
 #include "debug.h"
 #include "value.h"
 
+  clock_t start, end; //p7
+  double cpu_time_used; //p7
+  
 void disassembleChunk(Chunk* chunk, const char* name) {
-  printf("== %s ==\\\n", name);
+start = clock(); //p7
+
+
+  printf("== Timer Start ==\\\n");
+  printf("\\== %s ==\\\n", name);
 
   for (int offset = 0; offset < chunk->count;) {
     offset = disassembleInstruction(chunk, offset);
   }
   printf("-------------------------------\n");
-
+//constants array
   for (int i = 0; i < chunk->constants.count; i++) {
-    printf("%3d | ", i); //3 represents max ammt oof space i can take when in the dump  __3
+    printf("%3d | ", i); //3 represents max ammt of space i can take when in the dump  __3
     printValue(chunk->constants.values[i]);
     printf("\n");
   }
   printf("\\== %s ==/\n",name);
+  //--------
+  end = clock(); //p7
+  cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC; //p7
+  printf("Disassembly time: %f seconds\n", cpu_time_used);
+  printf("\n"); 
 }
+
 
 static int simpleInstruction(const char* name, int offset) {
   printf("%s\n", name);
@@ -41,6 +54,7 @@ static int constantInstruction(const char* name, Chunk* chunk,
 }
 
 int disassembleInstruction(Chunk* chunk, int offset) {
+
   printf("%04d ", offset);
   if (offset > 0 &&
       chunk->lines[offset] == chunk->lines[offset - 1]) {
@@ -98,6 +112,7 @@ int disassembleInstruction(Chunk* chunk, int offset) {
       printf("Unknown opcode %d\n", instruction);
       return offset + 1;
   }
+
 }
 
 #ifdef DEBUG_TRACE_FUNCTIONS  
